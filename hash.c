@@ -46,9 +46,35 @@ printf("===============end=============\n");
 bool hash_table_insert(person *p){
     if(p==NULL) return false;
     int index =hash(p->name);
-    if(hash_table[index]!=NULL) return false;
+    if(hash_table[index]!=NULL){
+        printf("%s occupying that spot \n",hash_table[index]->name);
+        return false;
+        }
     hash_table[index]=p;
     return true;
+}
+
+
+person *hash_table_lookup(char *name){
+int index =hash(name);
+if(hash_table[index]!=NULL && strcmp(name,hash_table[index]->name)==0){
+    person *tmp =hash_table[index];
+    return hash_table[index];
+}else{
+    return NULL;
+}
+}
+
+
+person *hash_table_delete(char *name){
+int index =hash(name);
+if(hash_table[index]!=NULL && strcmp(name,hash_table[index]->name)==0){
+    person *tmp =hash_table[index];
+    hash_table[index]=NULL;
+    return tmp;
+}else{
+    return NULL;
+}
 }
 
 int main(){
@@ -59,14 +85,40 @@ print_table();
 person jacob ={.name="Jacob",.age=30};
 person kate ={.name="kate",.age=30};
 person paul ={.name="paul",.age=30};
-person ron ={.name="ron",.age=30};
-person maren ={.name="maren",.age=30};
+person ron ={.name="ron",.age=31};
+person Maren ={.name="Maren",.age=32};
+person Jane ={.name="Jane",.age=33};
+person eliza ={.name="Eliza",.age=30};
+
 
 hash_table_insert(&jacob);
 hash_table_insert(&kate);
 hash_table_insert(&paul);
 hash_table_insert(&ron);
-hash_table_insert(&maren);
+hash_table_insert(&Maren);
+hash_table_insert(&Jane);
+hash_table_insert(&eliza);
+
+
+
+person *tmp = hash_table_lookup("kate");
+if(tmp ==NULL){
+printf("not found\n");
+}else{
+printf("found %s\n",tmp->name);
+}
+
+print_table();
+
+person *tmp2 = hash_table_delete("kate");
+if(tmp2 ==NULL){
+printf("not found\n");
+}else{
+printf("deleted %s\n",tmp2->name);
+}
+// person *tmp = hash_table_lookup("kate");
+// person *tmp = hash_table_lookup("paul");
+
 // printf("John => %u\n",hash("Mry"));
 // printf("natalie => %u\n",hash("natalie"));
 // printf("sarar => %u\n",hash("sarah"));
