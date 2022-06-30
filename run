@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc hash.c -o main
+./main
