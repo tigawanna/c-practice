@@ -9,7 +9,7 @@
 #define TABLE_SIZE 10
 #define DELETED_NODE (person*)(0xFFFFFFFFFFFFUL)
 
-typedef struct{
+typedef struct person{
     char name[MAX_NAME];
     int age;
     struct person *next;
@@ -57,9 +57,13 @@ printf("===============end=============\n");
 bool hash_table_insert(person *p){
     if(p==NULL) return false;
     int index = hash(p->name);
+    printf("index from hash ===> %d \n",index);
+        printf("who lv 1 ===> %s \n",hash_table[index]->name);
     p->next = hash_table[index];
+        printf("who lv 1 ===> %s \n",hash_table[index]->name);
     hash_table[index] = p;
-     return true;
+        printf("who lv 1 ===> %s \n",hash_table[index]->name);
+    return true;
 }
 
 
@@ -119,21 +123,29 @@ hash_table_insert(&eliza);
 
 
 
-person *tmp = hash_table_lookup("kate");
+person *tmp = hash_table_lookup("Maren");
 if(tmp ==NULL){
-printf("not found\n");
+printf("maren not found\n");
 }else{
-printf("found %s\n",tmp->name);
+ // should return ron because hashing function gave them both index 0   
+printf("in Maren found %s\n",tmp->next->name);
 }
 
-print_table();
-
-person *tmp2 = hash_table_delete("kate");
+person *tmp2 = hash_table_lookup("John");
 if(tmp2 ==NULL){
-printf("not found\n");
+printf("JOhn not found\n");
 }else{
-printf("deleted %s\n",tmp2->name);
+ // should return ron because hashing function gave them both index 0   
+printf("in John found %s\n",tmp2->next->name);
 }
+// print_table();
+
+// person *tmp2 = hash_table_delete("kate");
+// if(tmp2 ==NULL){
+// printf("kate not found\n");
+// }else{
+// printf("deleted %s\n",tmp2->name);
+// }
 
 
 print_table();
